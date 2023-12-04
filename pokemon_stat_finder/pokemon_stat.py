@@ -2,19 +2,30 @@ import requests
 
 class Pokemon:
     #Get user input for pokemon request
-    def get_pokemon(poke_request):
-        poke_request= input("Type the 1st pokemon you want to look for:").lower()
-        api_url = f"https://pokeapi.co/api/v2/pokemon/{poke_request}"
-        response = requests.get(api_url)
-        if response.status_code() != '200':
-            print("Pokemon is not valid")
-        elif response.status_code() == '200':
-            data = response.json()
+    def get_pokemon():
+        while True:
+            poke_request= input("Type the 1st pokemon you want to look for:").lower()
+            api_url = f"https://pokeapi.co/api/v2/pokemon/{poke_request}"
+            response = requests.get(api_url)
+            if response.status_code != 200:
+                print("Pokemon is not valid")
+            elif response.status_code == 200:
+                data = response.json()
+                break
+            return data
+        
 
-        poke_request2= input("Type the 2nd pokemon you want to look for:").lower()
-        api_url_2 = f"https://pokeapi.co/api/v2/pokemon/{poke_request2}"
-        response_2 = requests.get(api_url_2)
-        data_2 = response_2.json()
+    def get_pokemon_2():
+        while True:
+            poke_request_2= input("Type the 2nd pokemon you want to look for:").lower()
+            api_url_2 = f"https://pokeapi.co/api/v2/pokemon/{poke_request_2}"
+            response_2 = requests.get(api_url_2)
+            if response_2.status_code != 200:
+                print("Pokemon is not valid")
+            elif response_2.status_code == 200:
+                data_2 = response_2.json()
+                break
+        return data_2
 
     #initalize pokemon object
     def __init__ (self,name,types,abilities,hp,attack,defense,spatk,spdef,spd):
@@ -66,21 +77,21 @@ class Pokemon:
         print(f"Pokemon 2's Speed is: {Pokemon2.spd}")
         
 
-    
 
-Pokemon1 = Pokemon(Pokemon.data['species']['name'], Pokemon.data['types'][0]['type']['name'],Pokemon.data['abilities'][0]['ability']['name'],
-Pokemon.data['stats'][0]['base_stat'],Pokemon.data['stats'][1]['base_stat'],Pokemon.data['stats'][2]['base_stat'],
-Pokemon.data['stats'][3]['base_stat'],Pokemon.data['stats'][4]['base_stat'],Pokemon.data['stats'][5]['base_stat'])
+poke_name = Pokemon.get_pokemon()
+poke_name2 =  Pokemon.get_pokemon_2()
 
-Pokemon2 =Pokemon(Pokemon.data_2['species']['name'], Pokemon.data_2['types'][0]['type']['name'],Pokemon.data_2['abilities'][0]['ability']['name'],
-Pokemon.data_2['stats'][0]['base_stat'],Pokemon.data_2['stats'][1]['base_stat'],Pokemon.data_2['stats'][2]['base_stat'],
-Pokemon.data_2['stats'][3]['base_stat'],Pokemon.data_2['stats'][4]['base_stat'],Pokemon.data_2['stats'][5]['base_stat'])
+Pokemon1 = (poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
+poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
+poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
 
-
-Pokemon.get_pokemon
-
+Pokemon2 =(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
+poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
+poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
 
 
+print(Pokemon1)
+print(Pokemon2)
 
 
 
