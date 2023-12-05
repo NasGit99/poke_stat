@@ -41,20 +41,10 @@ class Pokemon:
         self.spdef = spdef
         self.spd = spd
 
-        #Define attack strength for Poke 1 & 2
-    def define_attack_strength():
-
-        base_attack1 = (Pokemon1.attack + Pokemon1.spatk)
-        base_attack2 = (Pokemon2.attack + Pokemon2.spatk)
-        # if base_attack1 > base_attack2: 
-        #     print(f"{Pokemon1.name} is stronger")
-        # else:
-        #     print(f"{Pokemon2.name} is stronger")
-    
+      
     def define_defense():
         base_defense1 =(Pokemon1.defense + Pokemon1.spdef)
         base_defense2 =(Pokemon2.defense + Pokemon2.spdef)
-
 
         #List stats for Reference
     def list_stats ():
@@ -80,18 +70,27 @@ class Pokemon:
         
 
 
-poke_name = Pokemon.get_pokemon()
-poke_name2 =  Pokemon.get_pokemon_2()
 
-Pokemon1 = Pokemon(poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
-poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
-poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
 
-Pokemon2 = Pokemon(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
-poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
-poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
 
-Pokemon.list_stats()
+if __name__ == "__main__":
+    # Create two Pokémon
+    poke_name = Pokemon.get_pokemon()
+    poke_name2 =  Pokemon.get_pokemon_2()
+
+    Pokemon1 = Pokemon(poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
+    poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
+    poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
+
+    Pokemon2 = Pokemon(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
+    poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
+    poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
+
+Pokemon.list_stats()    
+# Start the battle
+
+
+
 
 
 
