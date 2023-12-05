@@ -12,7 +12,8 @@ class Pokemon:
             elif response.status_code == 200:
                 data = response.json()
                 break
-            return data
+
+        return data
         
 
     def get_pokemon_2():
@@ -25,6 +26,7 @@ class Pokemon:
             elif response_2.status_code == 200:
                 data_2 = response_2.json()
                 break
+
         return data_2
 
     #initalize pokemon object
@@ -81,17 +83,15 @@ class Pokemon:
 poke_name = Pokemon.get_pokemon()
 poke_name2 =  Pokemon.get_pokemon_2()
 
-Pokemon1 = (poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
+Pokemon1 = Pokemon(poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
 poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
 poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
 
-Pokemon2 =(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
+Pokemon2 = Pokemon(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
 poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
 poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
 
-
-print(Pokemon1)
-print(Pokemon2)
+Pokemon.list_stats()
 
 
 
