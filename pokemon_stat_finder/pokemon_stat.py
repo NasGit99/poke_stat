@@ -42,9 +42,11 @@ class Pokemon:
         self.spd = spd
 
       
-    def define_defense():
-        base_defense1 =(Pokemon1.defense + Pokemon1.spdef)
-        base_defense2 =(Pokemon2.defense + Pokemon2.spdef)
+    def determine_winning_chance():
+        if Pokemon1.hp-(Pokemon2.attack + Pokemon2.spatk)/10 > Pokemon2.hp - (Pokemon1.attack + Pokemon1.spatk)/10:
+            print(f"{Pokemon1.name.capitalize()} has a higher chance to win.")
+        elif Pokemon2.hp - (Pokemon1.attack + Pokemon1.spatk)/10 > Pokemon1.hp -(Pokemon2.attack + Pokemon2.spatk)/10:
+            print(f"{Pokemon2.name.capitalize()} has a higher chance to win.")
 
         #List stats for Reference
     def list_stats ():
@@ -67,10 +69,6 @@ class Pokemon:
         print(f"Pokemon 2's Special Attack is: {Pokemon2.spatk}")
         print(f"Pokemon 2's Special Defense is: {Pokemon2.spdef}")
         print(f"Pokemon 2's Speed is: {Pokemon2.spd}")
-        
-
-
-
 
 
 if __name__ == "__main__":
@@ -88,10 +86,10 @@ if __name__ == "__main__":
 
 Pokemon.list_stats()    
 # Start the battle
+print(f"\n")
 
-
-
-
+Pokemon.determine_winning_chance()
+ 
 
 
 
