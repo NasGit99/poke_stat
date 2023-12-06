@@ -3,6 +3,7 @@ FROM python:3.10.5
 RUN mkdir /app
 #installing requests
 RUN pip install requests
+RUN pip install time
 # adding application to directory
 ADD pokemon_stat.py /app
 

@@ -1,4 +1,5 @@
 import requests
+import time
 
 class Pokemon:
     #Get user input for pokemon request
@@ -48,6 +49,8 @@ class Pokemon:
         elif Pokemon2.hp - (Pokemon1.attack + Pokemon1.spatk)/10 > Pokemon1.hp -(Pokemon2.attack + Pokemon2.spatk)/10:
             print(f"{Pokemon2.name.capitalize()} has a higher chance to win.")
 
+    #create battle function to start battle, spd should play a factor as well as defense.
+    #defense will be attack / defense
         #List stats for Reference
     def list_stats ():
         print(f"Pokemon 1's Name is: {Pokemon1.name.capitalize()}")
@@ -70,26 +73,38 @@ class Pokemon:
         print(f"Pokemon 2's Special Defense is: {Pokemon2.spdef}")
         print(f"Pokemon 2's Speed is: {Pokemon2.spd}")
 
+while True:
+    if __name__ == "__main__":
+        # Create two Pokémon
+        poke_name = Pokemon.get_pokemon()
+        poke_name2 =  Pokemon.get_pokemon_2()
 
-if __name__ == "__main__":
-    # Create two Pokémon
-    poke_name = Pokemon.get_pokemon()
-    poke_name2 =  Pokemon.get_pokemon_2()
+        Pokemon1 = Pokemon(poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
+        poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
+        poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
 
-    Pokemon1 = Pokemon(poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
-    poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
-    poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
+        Pokemon2 = Pokemon(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
+        poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
+        poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
 
-    Pokemon2 = Pokemon(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
-    poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
-    poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
+    Pokemon.list_stats()    
+    print(f"\n")
+    Pokemon.determine_winning_chance()
 
-Pokemon.list_stats()    
-# Start the battle
-print(f"\n")
+    start_over= input("Would you like to look for more pokemon? Y or N :").upper()
+    if start_over == "Y":
+        __name__ == "__main__"
+    elif start_over == "N":
+        print("Exiting in 10 seconds")
+        time.sleep(10)
+        break
+    else:
+        print("You must choose Y or N")
+        
 
-Pokemon.determine_winning_chance()
- 
+        
+
+    
 
 
 
