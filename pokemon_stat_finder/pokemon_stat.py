@@ -72,36 +72,27 @@ class Pokemon:
 
 
 
+while True:
+    if __name__ == "__main__":
 
-if __name__ == "__main__":
-    # Create two Pokémon
-    poke_name = Pokemon.get_pokemon()
-    poke_name2 =  Pokemon.get_pokemon_2()
+        # Create two Pokémon
+            poke_name = Pokemon.get_pokemon()
+            poke_name2 =  Pokemon.get_pokemon_2()
 
-    Pokemon1 = Pokemon(poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
-    poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
-    poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
+            Pokemon1 = Pokemon(poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
+            poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
+            poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
 
-    Pokemon2 = Pokemon(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
-    poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
-    poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
+            Pokemon2 = Pokemon(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
+            poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
+            poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
 
-Pokemon.list_stats()    
-# Start the battle
+    Pokemon.list_stats()  
 
+    user_input = input("Would you like to try again? Type 1 or 2 ")
+    if user_input == "1":
+        continue
+    elif user_input == "2":
+        break
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # Start the battle
