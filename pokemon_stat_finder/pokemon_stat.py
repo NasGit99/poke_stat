@@ -42,9 +42,6 @@ class Pokemon:
         self.spd = spd
 
       
-    def define_defense():
-        base_defense1 =(Pokemon1.defense + Pokemon1.spdef)
-        base_defense2 =(Pokemon2.defense + Pokemon2.spdef)
 
         #List stats for Reference
     def list_stats ():
@@ -67,13 +64,69 @@ class Pokemon:
         print(f"Pokemon 2's Special Attack is: {Pokemon2.spatk}")
         print(f"Pokemon 2's Special Defense is: {Pokemon2.spdef}")
         print(f"Pokemon 2's Speed is: {Pokemon2.spd}")
+
+        
+    def battle_start ():
+        while (Pokemon1.hp > 0) and (Pokemon2.hp)>0 :
+            health_bar_1 = "=" * int(Pokemon1.hp/5)
+            health_bar_2 = "=" * int(Pokemon2.hp/5)
+
+            print(f"{Pokemon1.name} Health Bar: {health_bar_1}\n"
+                    f"current health is {Pokemon1.hp}\n")
+            
+            print(f"{Pokemon2.name} Health Bar: {health_bar_1}\n"
+                    f"current health is {Pokemon2.hp}\n")
+            
+            #Pokemon 1 attacks first
+            print("Pokemon 1 attacks: \n")
+            #Need to add a while True statement here later to validate a 1 or 2
+              
+            if Pokemon2.hp == 0:
+                print(f"{Pokemon1.name} has won")  
+                break
+
+            choice = input(f"{Pokemon1.name}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n") 
+                   
+            if choice == "1":
+                Pokemon2.hp -= Pokemon1.attack/5
+                print(f"{Pokemon2.name} pokemon health is now: {Pokemon2.hp}")
+
+            elif choice == "2":
+                Pokemon2.hp -= Pokemon1.spatk/5 
+                print(f"{Pokemon2.name} health is: {Pokemon2.hp}\n") 
+            elif choice != "1" or "2":
+                print("Please type 1 or 2 \n")
+            
+            #Pokemon 2 attacks second
+            print("Pokemon 2 attacks: \n")
+            print(f"{Pokemon1.name} Health Bar: {health_bar_1}\n"
+                    f"Current health is {Pokemon1.hp}\n")
+            
+            print(f"{Pokemon2.name} Health Bar: {health_bar_1}\n"
+                    f"Current health is {Pokemon2.hp}\n")
+            
+            if Pokemon1.hp == 0:
+                print("f{Pokemon2.name} has won! ") 
+
+            choice_2 = input(f"{Pokemon2.name}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n \n")
+
+            if choice_2 == "1":
+                Pokemon1.hp -= Pokemon2.attack/5
+                print(f"{Pokemon1.name} health is:{Pokemon1.hp}")
+                if Pokemon1.hp == 0:
+                    break
+            elif choice_2 == "2":
+                Pokemon1.hp -= Pokemon2.spatk/5
+                print(f"{Pokemon1.name} health is:{Pokemon1.hp}")
+            elif choice != "1" or "2":
+                print("Please type 1 or 2 \n \n")
+            
+
+                    
+          
         
 
-
-
-
-while True:
-    if __name__ == "__main__":
+if __name__ == "__main__":
 
         # Create two Pokémon
             poke_name = Pokemon.get_pokemon()
@@ -87,12 +140,11 @@ while True:
             poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
             poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
 
-    Pokemon.list_stats()  
+Pokemon.list_stats()  
 
-    user_input = input("Would you like to try again? Type 1 or 2 ")
-    if user_input == "1":
-        continue
-    elif user_input == "2":
-        break
-
-    # Start the battle
+user_input = input("Would you like to try again? Type 1 or 2 to start the pokemon battle:\n ")
+if user_input == "1":
+    print("test")
+elif user_input == "2":  
+    Pokemon.battle_start()
+# Start the battle
