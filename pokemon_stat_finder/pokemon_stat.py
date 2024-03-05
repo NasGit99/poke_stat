@@ -67,7 +67,8 @@ class Pokemon:
 
         
     def battle_start ():
-        while (Pokemon1.hp > 0) and (Pokemon2.hp)>0 :
+
+        while (Pokemon1.hp > 0) and (Pokemon2.hp > 0) :
             health_bar_1 = "=" * int(Pokemon1.hp/5)
             health_bar_2 = "=" * int(Pokemon2.hp/5)
 
@@ -80,10 +81,6 @@ class Pokemon:
             #Pokemon 1 attacks first
             print("Pokemon 1 attacks: \n")
             #Need to add a while True statement here later to validate a 1 or 2
-              
-            if Pokemon2.hp == 0:
-                print(f"{Pokemon1.name} has won")  
-                break
 
             choice = input(f"{Pokemon1.name}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n") 
                    
@@ -91,13 +88,22 @@ class Pokemon:
                 Pokemon2.hp -= Pokemon1.attack/5
                 print(f"{Pokemon2.name} pokemon health is now: {Pokemon2.hp}")
 
+                if Pokemon2.hp < 0:
+                    print(f"{Pokemon2.name} has  won")
+
             elif choice == "2":
                 Pokemon2.hp -= Pokemon1.spatk/5 
                 print(f"{Pokemon2.name} health is: {Pokemon2.hp}\n") 
+
+                if Pokemon2.hp < 0:
+                    print(f"{Pokemon2.name} has  won")
+
             elif choice != "1" or "2":
                 print("Please type 1 or 2 \n")
             
             #Pokemon 2 attacks second
+
+
             print("Pokemon 2 attacks: \n")
             print(f"{Pokemon1.name} Health Bar: {health_bar_1}\n"
                     f"Current health is {Pokemon1.hp}\n")
@@ -105,26 +111,26 @@ class Pokemon:
             print(f"{Pokemon2.name} Health Bar: {health_bar_1}\n"
                     f"Current health is {Pokemon2.hp}\n")
             
-            if Pokemon1.hp == 0:
-                print("f{Pokemon2.name} has won! ") 
 
             choice_2 = input(f"{Pokemon2.name}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n \n")
 
             if choice_2 == "1":
                 Pokemon1.hp -= Pokemon2.attack/5
                 print(f"{Pokemon1.name} health is:{Pokemon1.hp}")
-                if Pokemon1.hp == 0:
-                    break
+                
+                if Pokemon1.hp < 0:
+                   print(f"{Pokemon1.name} has  won")
+
             elif choice_2 == "2":
                 Pokemon1.hp -= Pokemon2.spatk/5
                 print(f"{Pokemon1.name} health is:{Pokemon1.hp}")
+
             elif choice != "1" or "2":
                 print("Please type 1 or 2 \n \n")
-            
 
-                    
-          
-        
+                if Pokemon1.hp < 0:
+                    print(f"{Pokemon1.name} has  won")
+            
 
 if __name__ == "__main__":
 
