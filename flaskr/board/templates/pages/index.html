@@ -1,0 +1,32 @@
+
+
+{% extends 'base.html' %}
+
+{% block header %}
+<head>
+    <title>Search Pokémon Stats</title>
+</head>
+{% endblock header %}
+
+{% block content %}
+<body>
+    <h1>Search for Pokémon Stats</h1>
+    <form action="/search" method="post">
+        <p>Pokemon Name:</p>
+        <input type="text" name="query" placeholder="Enter Pokémon name">
+        <button type="submit">Search</button>
+    </form>
+
+    <form action="/search/type" method="post">
+        <p>Pokemon Type:</p>
+        <input type="text" name="query" placeholder="Enter Pokémon Type">
+        <button type="submit">Search</button>
+    </form>
+
+    <form action="/search/ability" method="post">
+        <p>Pokemon Ability:</p>
+        <input type="text" name="query" placeholder="Enter Pokémon Ability">
+        <button type="submit">Search</button>
+    </form>
+</body>
+{% endblock content %}
