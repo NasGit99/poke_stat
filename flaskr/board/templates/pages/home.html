@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Home{% endblock title %}</h2>
+{% endblock header %}
+
+{% block content %}
+  <p>
+    Learn more about this project by visiting the <a href="{{ url_for('pages.about') }}">About page</a>.
+  </p>
+
+<h1>All Pokemon</h1>
+
+<style>
+  table {
+      width: 100%; /* Set table width to 100% of the container */
+      border-collapse: collapse; /* Collapse borders */
+  }
+  th, td {
+      border: 1px solid black; /* Add borders to cells */
+      padding: 8px; /* Add padding inside cells */
+      text-align: left; /* Align text to the left */
+  }
+</style>
+<table border="1">
+    <tr>
+        <th>Poke ID</th>
+        <th>Pokemon</th>
+        <th>Type</th>
+        <th>Type 2</th>
+        <th>Ability</th>
+        <th>Ability 2</th>
+        <th>Hp</th>
+        <th>Attack</th>
+        <th>Defense</th>
+        <th>Special Attack</th>
+        <th>Special Defense</th>
+        <th>Speed</th>
+        <!-- Add more headers as per your database schema -->
+    </tr>
+    
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.id}}</td>
+        <td>{{ row.poke_name}}</td>
+        <td>{{ row.type}}</td>
+        <td>{{ row.type_2}}</td>
+        <td>{{ row.ability}}</td>
+        <td>{{ row.ability_2}}</td>
+        <td>{{ row.hp}}</td>
+        <td>{{ row.attack}}</td>
+        <td>{{ row.defense}}</td>
+        <td>{{ row.spatk}}</td>
+        <td>{{ row.spdef}}</td>
+        <td>{{ row.speed}}</td>
+        <!-- Add more columns as per your database schema -->
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
