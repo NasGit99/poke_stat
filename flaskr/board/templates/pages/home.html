@@ -42,7 +42,14 @@
       {% if rows %}
       {% for row in rows %}
       <tr>
-          <td>{{ row.id }}</td>
+        <td>
+          <a href="#" onclick="document.getElementById('form-{{ row.id }}').submit(); return false;">
+              {{ row.id }}
+          </a>
+          <form id="form-{{ row.id }}" action="/pokemon" method="get" style="display:none;">
+              <input type="hidden" name="id" value="{{ row.id }}">
+          </form>
+      </td>
           <td>{{ row.poke_name }}</td>
           <td>{{ row.type }}</td>
           <td>{{ row.type_2 }}</td>

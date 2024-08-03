@@ -84,3 +84,17 @@ def home():
 @bp.route("/about")
 def about():
     return render_template("pages/about.html")
+
+@bp.route('/pokemon', methods=['GET'])
+def search_pokemon():
+    query = request.args.get('id')
+    try:
+        mysql = current_app.mysql
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM poke_stats WHERE id = %s;", (query,))
+        rows = cursor.fetchall()
+        cursor.close()
+        return render_template('pages/home.html', rows=rows)
+    except Exception as e:
+        logging.error(f"could not fetch data due to {e}")
+        return render_template('pages/home.html', rows=[])
