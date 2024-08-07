@@ -93,8 +93,11 @@ def search_pokemon():
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM poke_stats WHERE id = %s;", (query,))
         rows = cursor.fetchall()
+        cursor.execute("Select  distinct w.* from poke_stats p join pokemon_weakness w on w.poke_name = p.poke_name where id = %s;", (query,))
+        row2 = cursor.fetchall()
+
         cursor.close()
-        return render_template('pages/home.html', rows=rows)
+        return render_template('pages/pokemon.html', rows=rows, rows2=row2)
     except Exception as e:
         logging.error(f"could not fetch data due to {e}")
-        return render_template('pages/home.html', rows=[])
+        return render_template('pages/pokemon.html', rows=[])

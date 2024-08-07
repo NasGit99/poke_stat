@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+  <p>
+    Learn more about this project by visiting the <a href="{{ url_for('pages.about') }}">About page</a>.
+  </p>
+
+
+
+  <style>
+    table {
+        width: 100%; /* Set table width to 100% of the container */
+        border-collapse: collapse; /* Collapse borders */
+    }
+    th, td {
+        border: 1px solid black; /* Add borders to cells */
+        padding: 8px; /* Add padding inside cells */
+        text-align: left; /* Align text to the left */
+    }
+  </style>
+
+
+<table>
+
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Type 2</th>
+      <th>Ability</th>
+      <th>Ability 2</th>
+  </tr>
+
+  {% if rows %}
+  {% for row in rows %}
+  <tr>
+      <td>{{row.poke_name}}</td>
+      <td>{{ row.type }}</td>
+      <td>{{ row.type_2 }}</td>
+      <td>{{ row.ability }}</td>
+      <td>{{ row.ability_2 }}</td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <p>No results found.</p>
+  {% endif %}
+</table>
+
+<h2>Weaknesses</h2>
+  <table>
+    <tr>
+      <th>Normal</th>
+      <th>Fire</th>
+      <th>Water</th>
+      <th>Electric</th>
+      <th>Grass</th>
+      <th>Ice</th>
+      <th>Fighting</th>
+      <th>Poison</th>
+      <th>Ground</th>
+      <th>Flying</th>
+      <th>Psychic</th>
+      <th>Bug</th>
+      <th>Rock</th>
+      <th>Ghost</th>
+      <th>Dragon</th>
+      <th>Dark</th>
+      <th>Steel</th>
+      <th>Fairy</th>
+      <!-- Add more headers as per your database schema -->
+  </tr>
+      {% if rows %}
+      {% for row in rows2 %}
+      <td>{{ row.Normal }}</td>
+      <td>{{ row.Fire }}</td>
+      <td>{{ row.Water }}</td>
+      <td>{{ row.Electric }}</td>
+      <td>{{ row.Grass }}</td>
+      <td>{{ row.Ice }}</td>
+      <td>{{ row.Fighting }}</td>
+      <td>{{ row.Poison }}</td>
+      <td>{{ row.Ground }}</td>
+      <td>{{ row.Flying }}</td>
+      <td>{{ row.Psychic }}</td>
+      <td>{{ row.Bug }}</td>
+      <td>{{ row.Rock }}</td>
+      <td>{{ row.Ghost }}</td>
+      <td>{{ row.Dragon }}</td>
+      <td>{{ row.Dark }}</td>
+      <td>{{ row.Steel }}</td>
+      <td>{{ row.Fairy }}</td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <p>No results found.</p>
+    {% endif %}
+</table>
+
+<h2> Stats</h2>
+<table>
+  
+
+          <th>Hp</th>
+          <th>Attack</th>
+          <th>Defense</th>
+          <th>Special Attack</th>
+          <th>Special Defense</th>
+          <th>Speed</th>
+          <th>Total</th>
+          <!-- Add more headers as per your database schema -->
+      </tr>
+      
+      {% if rows %}
+      {% for row in rows %}
+      <tr>
+          <td>{{ row.hp }}</td>
+          <td>{{ row.attack }}</td>
+          <td>{{ row.defense }}</td>
+          <td>{{ row.spatk }}</td>
+          <td>{{ row.spdef }}</td>
+          <td>{{ row.speed }}</td>
+          <td>{{row.hp+ row.attack + row.defense+ row.spatk+ row.spdef + row.speed}}</td>
+          <!-- Add more columns as per your database schema -->
+      </tr>
+      {% endfor %}
+      {% else %}
+      <p>No results found.</p>
+      {% endif %}
+  </table>
+
+  <a href="/">Back to search</a>
+{% endblock content %}
