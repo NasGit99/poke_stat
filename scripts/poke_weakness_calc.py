@@ -64,21 +64,17 @@ ON
 # Combine all parts to form the complete query
 query = query_base + query_middle + query_end
 
-# Print the query for debugging purposes
 print(query)
 
 mydb = db_connection()
 mycursor = mydb.cursor()
 mycursor.execute(query)
 
-# Fetch all the results
 results = mycursor.fetchall()
 
-# Display the results
 for row in results:
     print(row)
 
-# Close the cursor and connection
 mycursor.close()
 mydb.close()
 
