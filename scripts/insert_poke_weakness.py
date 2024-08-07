@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS pokemon_weakness  (
 );
 
 
-# """)
+""")
 
 mycursor.execute(query)
 
