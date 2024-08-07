@@ -1,14 +1,13 @@
 from db_connector import *
 
-
-
 # Define type columns
 type_columns = ["Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy", "Stellar"]
 
 # Base query part
 query_base = """
-SELECT 
-    ps.*,
+
+INSERT INTO pokemon_weakness (poke_name, Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy, Stellar)
+Select ps.poke_name,
 """
 
 # Dynamically generate the CASE statements for each type column
@@ -54,7 +53,7 @@ FROM
 JOIN 
     type_weakness tw1 
 ON 
-    ps.Type_1 = tw1.Type_Name
+    ps.Type = tw1.Type_Name
 LEFT JOIN 
     type_weakness tw2 
 ON 
@@ -66,14 +65,56 @@ query = query_base + query_middle + query_end
 
 print(query)
 
+
 mydb = db_connection()
 mycursor = mydb.cursor()
+
+
+
+mycursor.execute("""
+CREATE TABLE IF NOT EXISTS pokemon_weakness  (
+    poke_name VARCHAR(255),
+    Normal FLOAT,
+    Fire FLOAT,
+    Water FLOAT,
+    Electric FLOAT,
+    Grass FLOAT,
+    Ice FLOAT,
+    Fighting FLOAT,
+    Poison FLOAT,
+    Ground FLOAT,
+    Flying FLOAT,
+    Psychic FLOAT,
+    Bug FLOAT,
+    Rock FLOAT,
+    Ghost FLOAT,
+    Dragon FLOAT,
+    Dark FLOAT,
+    Steel FLOAT,
+    Fairy FLOAT,
+    Stellar FLOAT
+);
+
+
+# """)
+
 mycursor.execute(query)
 
 results = mycursor.fetchall()
 
 for row in results:
     print(row)
+
+
+try:
+    # Execute the INSERT query
+    mycursor.execute(query)
+    # Commit the transaction
+    mydb.commit()
+    print("Data inserted successfully.")
+except mysql.connector.Error as err:
+    print(f"Error: {err}")
+    mydb.rollback()
 
 mycursor.close()
 mydb.close()
