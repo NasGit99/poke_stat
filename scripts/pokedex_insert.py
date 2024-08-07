@@ -2,17 +2,12 @@ from pokemon_dex import sort_through_dex, insert_into_dex
 from var import *
 import pandas as pd
 from sqlalchemy import create_engine
-
+from db_connector import db_connection
 
 def create_poke_database():
-    import mysql.connector
 
-    mydb = mysql.connector.connect(
-    host=host,
-    user=db_user,
-    password=db_password
-    )
-
+    mydb = db_connection()
+    
     mycursor = mydb.cursor()
 
     mycursor.execute("CREATE DATABASE IF NOT EXISTS PokeData")
