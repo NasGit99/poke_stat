@@ -85,26 +85,24 @@ def create_ability_table():
     CREATE TABLE IF NOT EXISTS abilities(
         id int,
         ability_name varchar(50),
-        ruby-sapphire varchar(100),
+        ruby_sapphire varchar(100),
         emerald varchar(100),
-        firered-leafgreen varchar(100),
-        diamond-pearl varchar(100),
+        firered_leafgreen varchar(100),
+        diamond_pearl varchar(100),
         platinum varchar(100),
-        heartgold-soulsilver varchar(100),
+        heartgold_soulsilver varchar(100),
         black-white varchar(100),
-        black-2-white-2 varchar(100),
-        x-y varchar(100),
-        omega-ruby-alpha-sapphire varchar(100),
-        sun-moon varchar(100),
-        ultra-sun-ultra-moon varchar(100),
-        lets-go-pikachu-lets-go-eevee varchar(100),
-        sword-shield varchar(100),
-        scarlet-violet varchar(100),
+        black_2_white_2 varchar(100),
+        x_y varchar(100),
+        omega_ruby_alpha_sapphire varchar(100),
+        sun_moon varchar(100),
+        ultra_sun_ultra_moon varchar(100),
+        lets_go_pikachu_lets_go_eevee varchar(100),
+        sword_shield varchar(100),
+        scarlet_violet varchar(100),
         PRIMARY KEY(id)
         ); 
     """)
-
-    
 
 def insert_abilities_into_table():
 
