@@ -61,8 +61,7 @@ def create_type_chart():
         if type_name not in type_chart['Type_Name']:
             type_chart['Type_Name'].append(type_name)
 
-        # Track processed types
-        processed_types = set()
+
 
         type_chart['ID'].append(type_count)
 
@@ -94,11 +93,10 @@ def create_type_chart():
         #         if len(type_chart[type_key]) < type_count:
         #             type_chart[type_key].append("1")
 
-        processed_types.clear()
         type_count += 1
 
     poke_types = type_chart
-    poke_types_df = type_df = pd.DataFrame(poke_types, columns = type_chart, index= None)
+    poke_types_df = pd.DataFrame(poke_types, columns = type_chart, index= None)
 
     return poke_types_df
 

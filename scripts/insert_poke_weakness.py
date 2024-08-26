@@ -11,6 +11,7 @@ Select ps.poke_name,
 """
 
 # Dynamically generate the CASE statements for each type column
+#Future iterations of this will take into account pokemon with the ability of levitate (Ground = 0)
 case_statements = []
 for col in type_columns:
     case_statement = f"""
@@ -23,9 +24,9 @@ for col in type_columns:
                 WHEN tw2.{col} = 2 THEN 
                     CASE 
                         -- If the total weakness is 2 or more, adjust it accordingly
-                        WHEN (tw1.{col} = 2 AND tw2.{col} = 2) THEN 2
-                        WHEN (tw1.{col} + tw2.{col}) > 2 THEN 2
-                        WHEN (tw1.{col} + tw2.{col}) = 2.5 THEN 2
+                        WHEN (tw1.{col} = 2 AND tw2.{col} = 2) THEN 4
+                        WHEN (tw1.{col} + tw2.{col}) = 3 THEN 2
+                        WHEN (tw1.{col} + tw2.{col}) = 2.5 THEN 1
                         WHEN (tw1.{col} + tw2.{col}) = 1.5 THEN 1
                         ELSE tw1.{col} + tw2.{col}
                     END
