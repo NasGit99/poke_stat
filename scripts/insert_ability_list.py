@@ -4,12 +4,12 @@ from db_connector import *
 from sqlalchemy import create_engine
 
 
-def get_types(x):
+def get_ability(x):
         while True:
             api_url = f"https://pokeapi.co/api/v2/ability/{x}"
             response = requests.get(api_url)
             if response.status_code != 200:
-                print("Type is not valid")
+                print("Ability is not valid")
                 return None
             elif response.status_code == 200:
                 data = response.json()
@@ -23,7 +23,7 @@ game_dict ={}
 
 def insert_game_list():
     ability_counter =1
-    ability = get_types(ability_counter)
+    ability = get_ability(ability_counter)
     while ability:
         for ability_no in ability['flavor_text_entries']:
             if ability_no['version_group']['name'] not in game_list:
@@ -37,7 +37,7 @@ def insert_ability_list():
     ability_counter = 1
 
     try:
-        ability = get_types(ability_counter)
+        ability = get_ability(ability_counter)
     except Exception as e:
         print(f"Ability not valid: {e}")
         
@@ -71,7 +71,7 @@ def insert_ability_list():
             print(e)
         ability_counter += 1
         try:
-            ability = get_types(ability_counter)
+            ability = get_ability(ability_counter)
         except Exception as e:
             print(f"Ability not valid: {e}")
             break
