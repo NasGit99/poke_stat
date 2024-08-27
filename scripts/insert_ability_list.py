@@ -22,14 +22,19 @@ game_dict ={}
 
 
 def insert_game_list():
-    ability_counter =1
+    ability_counter = 1
     ability = get_ability(ability_counter)
-    while ability:
-        for ability_no in ability['flavor_text_entries']:
-            if ability_no['version_group']['name'] not in game_list:
-                game_list.append(ability_no['version_group']['name'])
-            ability_counter += 1
-        break
+    
+    if ability:
+        processed_games = set() 
+
+        for ability_num in ability['flavor_text_entries']:
+            game_name = ability_num['version_group']['name']
+
+            if game_name not in processed_games:
+                processed_games.add(game_name)
+                if game_name not in game_list:
+                    game_list.append(game_name.replace("-", "_"))
 
 
 def insert_ability_list():
@@ -49,24 +54,21 @@ def insert_ability_list():
                 
         #Append ability name 
         
-        abl_name =  ability['name']
+        ablity_name =  ability['name']
         game_dict['id'][-1]=(ability_counter)
-        game_dict['ability_name'][-1]=(abl_name)
+        game_dict['ability_name'][-1]=(ablity_name)
         
         try:
-            for ability_no in ability['flavor_text_entries']:
+            for ability_num in ability['flavor_text_entries']:
                 
                 #Checks to see if the ability is english and if the game name is in the game_list
-                
-                if ability_no['language']['name'] == 'en' and ability_no['version_group']['name'] in game_list:
-                    
-                    appended_game = ability_no['version_group']['name']
-                    #If appended game is in dict keys
+                game = ability_num['version_group']['name'].replace("-","_")
+                if ability_num['language']['name'] == 'en' and game in game_list:          
                     for type_key in game_dict.keys():
-                        if type_key == appended_game:
+                        if type_key == game:
                     #Assign ability per games in the list to game_dict for last index value
-                            game_dict[type_key][-1]=(ability_no['flavor_text'])
-            print(f"{abl_name}, has been appended")
+                            game_dict[type_key][-1]=(ability_num['flavor_text'])
+            print(f"{ablity_name}, has been appended")
         except Exception as e:
             print(e)
         ability_counter += 1
@@ -85,21 +87,21 @@ def create_ability_table():
     CREATE TABLE IF NOT EXISTS abilities(
         id int,
         ability_name varchar(50),
-        ruby_sapphire varchar(100),
-        emerald varchar(100),
-        firered_leafgreen varchar(100),
-        diamond_pearl varchar(100),
-        platinum varchar(100),
-        heartgold_soulsilver varchar(100),
-        black-white varchar(100),
-        black_2_white_2 varchar(100),
-        x_y varchar(100),
-        omega_ruby_alpha_sapphire varchar(100),
-        sun_moon varchar(100),
-        ultra_sun_ultra_moon varchar(100),
-        lets_go_pikachu_lets_go_eevee varchar(100),
-        sword_shield varchar(100),
-        scarlet_violet varchar(100),
+        ruby_sapphire TEXT,
+        emerald TEXT,
+        firered_leafgreen TEXT,
+        diamond_pearl TEXT,
+        platinum TEXT,
+        heartgold_soulsilver TEXT,
+        black_white TEXT,
+        black_2_white_2 TEXT,
+        x_y TEXT,
+        omega_ruby_alpha_sapphire TEXT,
+        sun_moon TEXT,
+        ultra_sun_ultra_moon TEXT,
+        lets_go_pikachu_lets_go_eevee TEXT,
+        sword_shield TEXT,
+        scarlet_violet TEXT,
         PRIMARY KEY(id)
         ); 
     """)
@@ -114,7 +116,6 @@ def insert_abilities_into_table():
     ability_df.to_sql('abilities', con=engine, if_exists='append', index=False)
 
     print("Data Inserted")
-
 
 insert_game_list()
 for game in game_list:
