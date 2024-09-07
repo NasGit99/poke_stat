@@ -95,9 +95,22 @@ def search_pokemon():
         rows = cursor.fetchall()
         cursor.execute("Select  distinct w.* from poke_stats p join pokemon_weakness w on w.poke_name = p.poke_name where id = %s;", (query,))
         row2 = cursor.fetchall()
+        cursor.execute("""
+            SELECT distinct p.poke_name,
+                p.ability AS ability_1, 
+                a1.sword_shield AS ability_1_description,
+                pp.ability_2 as ability_2, 
+                a2.sword_shield AS ability_2_description
+            FROM poke_stats p
+            JOIN abilities a1 ON p.ability = a1.ability_name
+            LEFT JOIN poke_stats pp ON p.ability_2 = pp.ability_2
+            LEFT JOIN abilities a2 ON pp.ability_2 = a2.ability_name
+            WHERE p.id = %s;
+        """, (query))
+        row3 = cursor.fetchall()
 
         cursor.close()
-        return render_template('pages/pokemon.html', rows=rows, rows2=row2)
+        return render_template('pages/pokemon.html', rows=rows, rows2=row2, rows3=row3)
     except Exception as e:
         logging.error(f"could not fetch data due to {e}")
         return render_template('pages/pokemon.html', rows=[])
