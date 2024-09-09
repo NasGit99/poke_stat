@@ -12,13 +12,13 @@
 
   <style>
     table {
-        width: 100%; /* Set table width to 100% of the container */
-        border-collapse: collapse; /* Collapse borders */
+        width: 100%; 
+        border-collapse: collapse; 
     }
     th, td {
-        border: 1px solid black; /* Add borders to cells */
-        padding: 8px; /* Add padding inside cells */
-        text-align: left; /* Align text to the left */
+        border: 1px solid black; 
+        padding: 8px; 
+        text-align: left; 
     }
   </style>
 
@@ -90,7 +90,6 @@
       <th>Dark</th>
       <th>Steel</th>
       <th>Fairy</th>
-      <!-- Add more headers as per your database schema -->
   </tr>
       {% if rows %}
       {% for row in rows2 %}
@@ -130,7 +129,6 @@
           <th>Special Defense</th>
           <th>Speed</th>
           <th>Total</th>
-          <!-- Add more headers as per your database schema -->
       </tr>
       
       {% if rows %}
@@ -143,7 +141,6 @@
           <td>{{ row.spdef }}</td>
           <td>{{ row.speed }}</td>
           <td>{{row.hp+ row.attack + row.defense+ row.spatk+ row.spdef + row.speed}}</td>
-          <!-- Add more columns as per your database schema -->
       </tr>
       {% endfor %}
       {% else %}

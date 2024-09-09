@@ -10,17 +10,43 @@
 
   <h1>Pokemon Stats</h1>
 
+  <h2>Search</h2>
+    <form action="/search" method="post">
+        <p>Pokemon Name:</p>
+        <input type="text" name="query" placeholder="Enter Pokémon name">
+        <button type="submit">Search</button>
+    </form>
+
+  <form action="/search/type" method="post">
+      <p>Pokemon Type:</p>
+      <input type="text" name="query" placeholder="Enter Pokémon Type">
+      <button type="submit">Search</button>
+  </form>
+
+  <form action="/search/ability" method="post">
+      <p>Pokemon Ability:</p>
+      <input type="text" name="query" placeholder="Enter Pokémon Ability">
+      <button type="submit">Search</button>
+  </form>
+
   <style>
     table {
-        width: 100%; /* Set table width to 100% of the container */
-        border-collapse: collapse; /* Collapse borders */
+        width: 100%; 
+        border-collapse: collapse; 
     }
     th, td {
-        border: 1px solid black; /* Add borders to cells */
-        padding: 8px; /* Add padding inside cells */
-        text-align: left; /* Align text to the left */
+        border: 1px solid black; 
+        padding: 8px; 
+        text-align: left; 
     }
+
+    p {
+  white-space: pre;
+  font-family: monospace;
+}
   </style>
+
+<p></p>
 
   <table>
       <tr>
@@ -36,7 +62,6 @@
           <th>Special Attack</th>
           <th>Special Defense</th>
           <th>Speed</th>
-          <!-- Add more headers as per your database schema -->
       </tr>
       
       {% if rows %}
@@ -61,7 +86,6 @@
           <td>{{ row.spatk }}</td>
           <td>{{ row.spdef }}</td>
           <td>{{ row.speed }}</td>
-          <!-- Add more columns as per your database schema -->
       </tr>
       {% endfor %}
       {% else %}

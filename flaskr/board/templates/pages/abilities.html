@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+  <p>
+    Learn more about this project by visiting the <a href="{{ url_for('pages.about') }}">About page</a>.
+  </p>
+
+  <h1>Pokemon Abilities</h1>
+
+  <style>
+    table {
+        width: 100%; 
+        border-collapse: collapse; 
+    }
+    th, td {
+        border: 1px solid black; 
+        padding: 8px; 
+        text-align: left; 
+    }
+  </style>
+
+  <table>
+      <tr>
+          <th>Ability Name</th>
+          <th>Description</th>
+      </tr>
+      
+      {% if rows %}
+      {% for row in rows %}
+      <tr>
+          <td>{{row.ability_name}}</td>
+          <td>{{ row.sword_shield }}</td>
+
+      </tr>
+      {% endfor %}
+      {% else %}
+      <p>No results found.</p>
+      {% endif %}
+  </table>
+
+  <a href="/">Back to search</a>
+{% endblock content %}

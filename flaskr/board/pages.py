@@ -18,13 +18,14 @@ bp = Blueprint("pages", __name__)
 def index():
     return render_template('pages/index.html')
 
+
 @bp.route('/search', methods=['POST'])
 def search():
     query = request.form.get('query')
     try:
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM poke_stats Where poke_name LIKE %s;", (f"%{query}%",))
+        cursor.execute("SELECT distinct * FROM poke_stats Where poke_name LIKE %s;", (f"%{query}%",))
         rows = cursor.fetchall()
         cursor.close()
         #print(rows)
@@ -40,7 +41,7 @@ def search_type():
     try:
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM poke_stats Where type LIKE %s;", (f"%{query}%",))
+        cursor.execute("SELECT distinct * FROM poke_stats Where type LIKE %s or type_2 like %s;", (f"%{query}%",(f"%{query}%")))
         rows = cursor.fetchall()
         cursor.close()
         #print(rows)
@@ -56,14 +57,14 @@ def search_ability():
     try:
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM poke_stats Where ability LIKE %s;", (f"%{query}%",))
+        cursor.execute("SELECT * FROM abilities Where ability_name LIKE %s;", (f"%{query}%",))
         rows = cursor.fetchall()
         cursor.close()
         #print(rows)
-        return render_template('pages/home.html', rows=rows)
+        return render_template('pages/abilities.html', rows=rows)
     except Exception as e:
         logging.error(f"could not insert data due to {e}")
-        return render_template('pages/home.html', rows=[])
+        return render_template('pages/abilities.html', rows=[])
 
 
 @bp.route('/')
@@ -91,9 +92,9 @@ def search_pokemon():
     try:
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM poke_stats WHERE id = %s;", (query,))
+        cursor.execute("SELECT * FROM poke_stats p WHERE p.id = %s;", (query,))
         rows = cursor.fetchall()
-        cursor.execute("Select  distinct w.* from poke_stats p join pokemon_weakness w on w.poke_name = p.poke_name where id = %s;", (query,))
+        cursor.execute("Select  distinct w.* from poke_stats p join pokemon_weakness w on w.poke_name = p.poke_name where p.id = %s;", (query,))
         row2 = cursor.fetchall()
         cursor.execute("""
             SELECT distinct p.poke_name,
@@ -106,7 +107,7 @@ def search_pokemon():
             LEFT JOIN poke_stats pp ON p.ability_2 = pp.ability_2
             LEFT JOIN abilities a2 ON pp.ability_2 = a2.ability_name
             WHERE p.id = %s;
-        """, (query))
+        """, (query,))
         row3 = cursor.fetchall()
 
         cursor.close()
@@ -114,3 +115,17 @@ def search_pokemon():
     except Exception as e:
         logging.error(f"could not fetch data due to {e}")
         return render_template('pages/pokemon.html', rows=[])
+
+@bp.route('/abilities')
+def abilities():
+
+    try:
+            mysql = current_app.mysql
+            cursor = mysql.connection.cursor()
+            cursor.execute("SELECT ability_name, sword_shield FROM abilities order by ability_name asc;")
+            rows = cursor.fetchall()
+            cursor.close()
+            return render_template('pages/abilities.html', rows=rows)
+    except Exception as e:
+        logging.error(f"could not insert data due to {e}")
+        return render_template('pages/abilities.html', rows=[])
