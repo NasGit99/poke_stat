@@ -99,9 +99,18 @@ def search_pokemon():
         cursor.execute("""
             SELECT distinct p.poke_name,
                 p.ability AS ability_1, 
-                a1.sword_shield AS ability_1_description,
+                case 
+                           when a1.scarlet_violet != 'n/a' then a1.scarlet_violet
+                           when a1.scarlet_violet = 'n/a' then a1.sword_shield 
+                           when a1.sword_shield = 'n/a' then a1.ultra_sun_ultra_moon
+                           when a1.ultra_sun_ultra_moon = 'n/a' then a1.x_y  end AS ability_1_description,
                 pp.ability_2 as ability_2, 
-                a2.sword_shield AS ability_2_description
+                       
+                case 
+                           when a2.scarlet_violet != 'n/a' then a2.scarlet_violet
+                           when a2.scarlet_violet = 'n/a' then a2.sword_shield 
+                           when a2.sword_shield = 'n/a' then a2.ultra_sun_ultra_moon
+                           when a2.ultra_sun_ultra_moon = 'n/a' then a2.x_y   end AS ability_2_description
             FROM poke_stats p
             JOIN abilities a1 ON p.ability = a1.ability_name
             LEFT JOIN poke_stats pp ON p.ability_2 = pp.ability_2
@@ -122,7 +131,15 @@ def abilities():
     try:
             mysql = current_app.mysql
             cursor = mysql.connection.cursor()
-            cursor.execute("SELECT ability_name, sword_shield FROM abilities order by ability_name asc;")
+            cursor.execute("""SELECT ability_name, 
+                           case 
+                           when scarlet_violet != 'n/a' then scarlet_violet
+                           when scarlet_violet = 'n/a' then sword_shield 
+                           when sword_shield = 'n/a' then ultra_sun_ultra_moon
+                           when ultra_sun_ultra_moon = 'n/a' then x_y    
+                           end as 'ability_desc'                        
+            FROM abilities order by ability_name asc;
+            """)
             rows = cursor.fetchall()
             cursor.close()
             return render_template('pages/abilities.html', rows=rows)

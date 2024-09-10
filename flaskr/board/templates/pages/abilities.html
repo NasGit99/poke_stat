@@ -10,6 +10,12 @@
 
   <h1>Pokemon Abilities</h1>
 
+  <form action="/search/ability" method="post">
+    <p>Pokemon Ability:</p>
+    <input type="text" name="query" placeholder="Enter Pokémon Ability">
+    <button type="submit">Search</button>
+</form>
+
   <style>
     table {
         width: 100%; 
@@ -32,7 +38,7 @@
       {% for row in rows %}
       <tr>
           <td>{{row.ability_name}}</td>
-          <td>{{ row.sword_shield }}</td>
+          <td>{{ row.ability_desc }}</td>
 
       </tr>
       {% endfor %}
