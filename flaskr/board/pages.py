@@ -92,10 +92,13 @@ def search_pokemon():
     try:
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
+        # Gather pokemon stats
         cursor.execute("SELECT * FROM poke_stats p WHERE p.id = %s;", (query,))
         rows = cursor.fetchall()
+        # Gather pokemon weaknesses
         cursor.execute("Select  distinct w.* from poke_stats p join pokemon_weakness w on w.poke_name = p.poke_name where p.id = %s;", (query,))
         row2 = cursor.fetchall()
+        # Gather pokemon abilities
         cursor.execute("""
             SELECT distinct p.poke_name,
                 p.ability AS ability_1, 
@@ -119,11 +122,23 @@ def search_pokemon():
         """, (query,))
         row3 = cursor.fetchall()
 
+
+        cursor.execute("""  
+        select distinct s.*
+        from pokemon_sprites s
+        join poke_stats p on s.poke_name = p.poke_name 
+        where p.id = %s;
+    """, (query,))
+
+        sprite_rows = cursor.fetchall()
+        
         cursor.close()
-        return render_template('pages/pokemon.html', rows=rows, rows2=row2, rows3=row3)
+
+        return render_template('pages/pokemon.html', rows=rows, rows2=row2, rows3=row3, sprites = sprite_rows)
     except Exception as e:
         logging.error(f"could not fetch data due to {e}")
         return render_template('pages/pokemon.html', rows=[])
+
 
 @bp.route('/abilities')
 def abilities():

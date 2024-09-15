@@ -22,6 +22,17 @@
     }
   </style>
 
+{% if rows %}
+{% for row in sprites %}
+<img src={{row.front_sprite}} alt="front_sprite" />
+<img src={{row.front_shiny_sprite}} alt="front_shiny_sprite" />
+
+{% endfor %}
+  {% else %}
+  <p>No results found.</p>
+  {% endif %}
+
+
 
 <table>
 
