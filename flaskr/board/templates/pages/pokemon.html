@@ -22,14 +22,22 @@
     }
   </style>
 
-{% if rows %}
+{% if sprites %}
 {% for row in sprites %}
-<img src={{row.front_sprite}} alt="front_sprite" />
-<img src={{row.front_shiny_sprite}} alt="front_shiny_sprite" />
+<div class="pokemon-container">
+  <div class="pokemon-image-box">
+      <img src={{row.front_sprite}} alt="front_sprite" class="pokemon-image">
+      <p>Normal</p>
+  </div>
+  <div class="pokemon-image-box">
+      <img src={{row.front_shiny_sprite}} alt="front_shiny_sprite" class="pokemon-image">
+      <p>Shiny</p>
+  </div>
+</div>
 
 {% endfor %}
   {% else %}
-  <p>No results found.</p>
+  <p>No image found.</p>
   {% endif %}
 
 
@@ -42,17 +50,22 @@
       <th>Type 2</th>
   </tr>
 
-  {% if rows %}
-  {% for row in rows %}
+  {% if poke_stats %}
+  {% for row in poke_stats %}
   <tr>
-      <td>{{row.poke_name}}</td>
-      <td>{{ row.type }}</td>
-      <td>{{ row.type_2 }}</td>
+      <td>{{ row.poke_name.capitalize() }}</td>
+      <td>{{ row.type.capitalize() }}</td>
+      <!-- applying text modifications to pokemon with no type 2 will result in no results -->
+      {% if row.type_2 %}
+      <td>{{ row.type_2.capitalize() }}</td>
+      {% else %}
+      <td>N/A</td>
+      {% endif %}
   </tr>
   {% endfor %}
-  {% else %}
+{% else %}
   <p>No results found.</p>
-  {% endif %}
+{% endif %}
 </table>
 
 <h2>   </h2>
@@ -65,13 +78,24 @@
     <th>Description</th>
   </tr>
 
-  {% if rows %}
-  {% for row in rows3 %}
+  {% if abilities %}
+  {% for row in abilities %}
   <tr>
-      <td>{{row.ability_1}}</td>
+      <td>{{row.ability_1.capitalize()}}</td>
+      
       <td>{{ row.ability_1_description }}</td>
+      {% if row.ability_2 %}
       <td>{{ row.ability_2 }}</td>
+      {% else %}
+      <td>N/A</td>
+      {% endif %}
+
+      {% if row.ability_2_description%}
       <td>{{ row.ability_2_description }}</td>
+      {% else %}
+      <td>N/A</td>
+      {% endif %}
+
   </tr>
   {% endfor %}
   {% else %}
@@ -102,8 +126,8 @@
       <th>Steel</th>
       <th>Fairy</th>
   </tr>
-      {% if rows %}
-      {% for row in rows2 %}
+      {% if type_weakness %}
+      {% for row in type_weakness %}
       <td>{{ row.Normal }}</td>
       <td>{{ row.Fire }}</td>
       <td>{{ row.Water }}</td>
@@ -142,8 +166,8 @@
           <th>Total</th>
       </tr>
       
-      {% if rows %}
-      {% for row in rows %}
+      {% if poke_stats %}
+      {% for row in poke_stats %}
       <tr>
           <td>{{ row.hp }}</td>
           <td>{{ row.attack }}</td>

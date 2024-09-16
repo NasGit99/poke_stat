@@ -32,3 +32,33 @@
     width: 80%;
     margin: 0 auto;
   }
+
+  .pokemon-container {
+    display: flex; /* Flexbox to align items horizontally */
+    align-items: center;
+    width: 600px; 
+    margin: 0 auto;
+    position: relative; 
+}
+
+.pokemon-image-box {
+    flex: 1; /* Equal width for each image box */
+    text-align: center; 
+    padding: 10px; 
+}
+
+.pokemon-image {
+    max-width: 100px; 
+    height: auto; 
+    display: block;
+    margin: 0 auto 10px; 
+}
+
+.pokemon-image-box p {
+    font-size: 14px; /* Style the label text */
+    color: #333;
+    margin: 0; /* Remove default margin */
+}
+
+
+

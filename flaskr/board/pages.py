@@ -26,10 +26,10 @@ def search():
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT distinct * FROM poke_stats Where poke_name LIKE %s;", (f"%{query}%",))
-        rows = cursor.fetchall()
+        stat_rows = cursor.fetchall()
         cursor.close()
         #print(rows)
-        return render_template('pages/home.html', rows=rows)
+        return render_template('pages/home.html', poke_stats=stat_rows)
     except Exception as e:
         logging.error(f"could not insert data due to {e}")
         return render_template('pages/home.html', rows=[])
@@ -42,10 +42,10 @@ def search_type():
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT distinct * FROM poke_stats Where type LIKE %s or type_2 like %s;", (f"%{query}%",(f"%{query}%")))
-        rows = cursor.fetchall()
+        stat_rows = cursor.fetchall()
         cursor.close()
         #print(rows)
-        return render_template('pages/home.html', rows=rows)
+        return render_template('pages/home.html', poke_stats=stat_rows)
     except Exception as e:
         logging.error(f"could not insert data due to {e}")
         return render_template('pages/home.html', rows=[])
@@ -57,11 +57,11 @@ def search_ability():
     try:
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM abilities Where ability_name LIKE %s;", (f"%{query}%",))
-        rows = cursor.fetchall()
+        cursor.execute("SELECT distinct * FROM abilities Where ability_name LIKE %s;", (f"%{query}%",))
+        ability_rows = cursor.fetchall()
         cursor.close()
         #print(rows)
-        return render_template('pages/abilities.html', rows=rows)
+        return render_template('pages/abilities.html', abilities=ability_rows)
     except Exception as e:
         logging.error(f"could not insert data due to {e}")
         return render_template('pages/abilities.html', rows=[])
@@ -73,10 +73,10 @@ def home():
         mysql = current_app.mysql
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM poke_stats;")
-        rows = cursor.fetchall()
+        stat_rows = cursor.fetchall()
         cursor.close()
         #print(rows)
-        return render_template('pages/home.html', rows=rows)
+        return render_template('pages/home.html', poke_stats=stat_rows)
     except Exception as e:
         logging.error(f"could not insert data due to {e}")
         return render_template('pages/home.html', rows=[])
@@ -94,10 +94,10 @@ def search_pokemon():
         cursor = mysql.connection.cursor()
         # Gather pokemon stats
         cursor.execute("SELECT * FROM poke_stats p WHERE p.id = %s;", (query,))
-        rows = cursor.fetchall()
+        stat_rows = cursor.fetchall()
         # Gather pokemon weaknesses
         cursor.execute("Select  distinct w.* from poke_stats p join pokemon_weakness w on w.poke_name = p.poke_name where p.id = %s;", (query,))
-        row2 = cursor.fetchall()
+        weakness_rows = cursor.fetchall()
         # Gather pokemon abilities
         cursor.execute("""
             SELECT distinct p.poke_name,
@@ -120,7 +120,7 @@ def search_pokemon():
             LEFT JOIN abilities a2 ON pp.ability_2 = a2.ability_name
             WHERE p.id = %s;
         """, (query,))
-        row3 = cursor.fetchall()
+        ability_rows = cursor.fetchall()
 
 
         cursor.execute("""  
@@ -134,7 +134,7 @@ def search_pokemon():
         
         cursor.close()
 
-        return render_template('pages/pokemon.html', rows=rows, rows2=row2, rows3=row3, sprites = sprite_rows)
+        return render_template('pages/pokemon.html', poke_stats=stat_rows, type_weakness=weakness_rows, abilities=ability_rows, sprites = sprite_rows)
     except Exception as e:
         logging.error(f"could not fetch data due to {e}")
         return render_template('pages/pokemon.html', rows=[])
@@ -155,9 +155,9 @@ def abilities():
                            end as 'ability_desc'                        
             FROM abilities order by ability_name asc;
             """)
-            rows = cursor.fetchall()
+            ability_rows = cursor.fetchall()
             cursor.close()
-            return render_template('pages/abilities.html', rows=rows)
+            return render_template('pages/abilities.html', abilities=ability_rows)
     except Exception as e:
         logging.error(f"could not insert data due to {e}")
         return render_template('pages/abilities.html', rows=[])

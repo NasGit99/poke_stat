@@ -60,8 +60,8 @@
           <th>Speed</th>
       </tr>
       
-      {% if rows %}
-      {% for row in rows %}
+      {% if poke_stats %}
+      {% for row in poke_stats %}
       <tr>
         <td>
           <a href="#" onclick="document.getElementById('form-{{ row.id }}').submit(); return false;">
