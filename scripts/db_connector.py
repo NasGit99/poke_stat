@@ -11,7 +11,6 @@ from var import *
 
 
 
-from var import *
 def db_connection():
     import mysql.connector
 

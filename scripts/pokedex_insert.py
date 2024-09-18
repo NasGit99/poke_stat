@@ -52,14 +52,14 @@ def insert_into_table():
 
     engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_password}@localhost/PokeData")
 
-    # Step 3: Convert the Pandas DataFrame to a format for MySQL table insertion
     final_poke_df.to_sql('poke_stats', con=engine, if_exists='append', index=False)
 
     print("Data Inserted")
     
+if __name__ == "__main__":
 
-create_poke_database()
-insert_into_table()
+    create_poke_database()
+    insert_into_table()
 
-print("Pokemon have been inserted into the database")
+    print("Pokemon have been inserted into the database")
 

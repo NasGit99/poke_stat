@@ -112,16 +112,17 @@ def insert_abilities_into_table():
 
     engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_password}@localhost/PokeData")
 
-    # Step 3: Convert the Pandas DataFrame to a format for MySQL table insertion
     ability_df.to_sql('abilities', con=engine, if_exists='append', index=False)
 
     print("Data Inserted")
 
-insert_game_list()
-for game in game_list:
-            game_dict = {key: [] for key in game_list}
-insert_ability_list()
-insert_abilities_into_table()
-        
+if __name__ == "__main__":
+
+    insert_game_list()
+    for game in game_list:
+                game_dict = {key: [] for key in game_list}
+    insert_ability_list()
+    insert_abilities_into_table()
+            
         
 

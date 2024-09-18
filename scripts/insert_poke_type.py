@@ -140,11 +140,12 @@ def insert_type_weakness_into_table():
 
     engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_password}@localhost/PokeData")
 
-    # Step 3: Convert the Pandas DataFrame to a format for MySQL table insertion
     type_chart_df.to_sql('type_weakness', con=engine, if_exists='append', index=False)
 
     print("Data Inserted")
 
-insert_type_weakness_into_table()
+if __name__ == "__main__":
+
+    insert_type_weakness_into_table()
 
 
