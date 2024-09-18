@@ -71,11 +71,22 @@
               <input type="hidden" name="id" value="{{ row.id }}">
           </form>
       </td>
-          <td>{{ row.poke_name }}</td>
-          <td>{{ row.type }}</td>
-          <td>{{ row.type_2 }}</td>
-          <td>{{ row.ability }}</td>
-          <td>{{ row.ability_2 }}</td>
+          <td>{{ row.poke_name.capitalize() }}</td>
+          <td>{{ row.type.capitalize() }}</td>
+
+          {% if row.type_2 %}
+              <td>{{ row.type_2.capitalize() }}</td>
+            {% else %}
+              <td>N/A</td>
+            {% endif %}       
+          <td>{{ row.ability.capitalize() }}</td>
+
+          {% if row.ability_2 %}
+            <td>{{ row.ability_2.capitalize()}}</td>
+            {%else %}
+            <td>N/A</td>
+          {% endif %}
+
           <td>{{ row.hp }}</td>
           <td>{{ row.attack }}</td>
           <td>{{ row.defense }}</td>

@@ -22,6 +22,8 @@
     }
   </style>
 
+  <h3>Scarlet Violet Dex</h3>
+
 {% if sprites %}
 {% for row in sprites %}
 <div class="pokemon-container">
@@ -85,7 +87,7 @@
       
       <td>{{ row.ability_1_description }}</td>
       {% if row.ability_2 %}
-      <td>{{ row.ability_2 }}</td>
+      <td>{{ row.ability_2.capitalize() }}</td>
       {% else %}
       <td>N/A</td>
       {% endif %}
@@ -151,6 +153,92 @@
     {% else %}
     <p>No results found.</p>
     {% endif %}
+</table>
+
+<h2>Standard Level Up</h2>
+<table>
+  <th>Level</th>
+  <th>Attack Name</th>
+  <th>Type</th>
+  <th>Attack Category</th>
+  <th>Attack</th>
+  <th>Priority</th>
+  <th>PP</th>
+
+  {% if level_up_moves %}
+  {% for row in level_up_moves %}
+  <tr>
+      <td>{{ row.level_learned_at }}</td>
+      <td>{{ row.move_name.capitalize() }}</td>
+      <td>{{ row.move_type.capitalize() }}</td>
+      <td>{{ row.move_attack_type.capitalize() }}</td>
+      <td>{{ row.attack }}</td>
+      <td>{{ row.priority}}</td>
+      <td>{{row.pp}}</td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <p>No results found.</p>
+  {% endif %}
+
+
+</table>
+
+
+<h2>Egg Moves</h2>
+<table>
+  <th>Attack Name</th>
+  <th>Type</th>
+  <th>Attack Category</th>
+  <th>Attack</th>
+  <th>Priority</th>
+  <th>PP</th>
+
+  {% if egg_moves %}
+  {% for row in egg_moves %}
+  <tr>
+      <td>{{ row.move_name.capitalize() }}</td>
+      <td>{{ row.move_type.capitalize() }}</td>
+      <td>{{ row.move_attack_type.capitalize() }}</td>
+      <td>{{ row.attack }}</td>
+      <td>{{ row.priority}}</td>
+      <td>{{row.pp}}</td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <p>No results found.</p>
+  {% endif %}
+
+
+</table>
+
+<h2>Machine Moves</h2>
+<table>
+  <th>TM #</th>
+  <th>Attack Name</th>
+  <th>Type</th>
+  <th>Attack Category</th>
+  <th>Attack</th>
+  <th>Priority</th>
+  <th>PP</th>
+
+  {% if machine_moves %}
+  {% for row in machine_moves %}
+  <tr>
+      <td>{{row.machine_name.upper()}}</td>
+      <td>{{ row.move_name.capitalize() }}</td>
+      <td>{{ row.move_type.capitalize() }}</td>
+      <td>{{ row.move_attack_type.capitalize() }}</td>
+      <td>{{ row.attack }}</td>
+      <td>{{ row.priority}}</td>
+      <td>{{row.pp}}</td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <p>No results found.</p>
+  {% endif %}
+
+
 </table>
 
 <h2> Stats</h2>

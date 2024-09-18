@@ -131,10 +131,81 @@ def search_pokemon():
     """, (query,))
 
         sprite_rows = cursor.fetchall()
+
+        cursor.execute("""
+        select s.pokemon, s.move_name, 
+        s.level_learned_at, 
+        learn_method, 
+        p.move_description,
+        p.move_attack_type,
+        p.move_type,
+        case when p.attack is null then '0' 
+            else p.attack end as 'attack', 
+         p.pp,
+        p.priority
+            from pokemon_move_set s
+            join pokemon_moves p on s.move_name = p.move_name
+            where s.game_name ='scarlet-violet'
+            and s.learn_method = 'level-up'
+            and s.pokemon_id = %s
+            order by level_learned_at asc
+            ;
+        """,(query,))
+
+        level_up_moves_rows = cursor.fetchall()
         
+        cursor.execute("""
+        select s.pokemon, s.move_name, 
+        s.level_learned_at, 
+        learn_method, 
+        p.move_description,
+        p.move_attack_type,
+        p.move_type,
+        case when p.attack is null then '0' 
+            else p.attack end as 'attack', 
+         p.pp,
+        p.priority
+            from pokemon_move_set s
+            join pokemon_moves p on s.move_name = p.move_name
+            where s.game_name ='scarlet-violet'
+            and s.learn_method = 'egg'
+            and s.pokemon_id = %s
+            order by move_name asc
+            ;
+        """,(query,))
+
+        egg_moves_row = cursor.fetchall()
+
+        cursor.execute("""
+        select s.pokemon, s.move_name, 
+        s.level_learned_at, 
+        learn_method, 
+        p.move_description,
+        p.move_attack_type,
+        p.move_type,
+        case when p.attack is null then '0' 
+            else p.attack end as 'attack', 
+         p.pp,
+        p.priority,
+        m.machine_name
+            from pokemon_move_set s
+            join pokemon_moves p on s.move_name = p.move_name
+            join machine_moves m on m.move_name =  p.move_name
+            where s.game_name ='scarlet-violet'
+            and s.learn_method = 'machine'
+            and s.pokemon_id = %s
+            and m.game_name = 'scarlet-violet'
+            order by move_name asc
+            ;
+        """,(query,))
+
+        machine_moves_row = cursor.fetchall()
+
         cursor.close()
 
-        return render_template('pages/pokemon.html', poke_stats=stat_rows, type_weakness=weakness_rows, abilities=ability_rows, sprites = sprite_rows)
+        return render_template('pages/pokemon.html', poke_stats=stat_rows, type_weakness=weakness_rows, 
+        abilities=ability_rows, sprites = sprite_rows, level_up_moves = level_up_moves_rows, egg_moves = egg_moves_row,
+        machine_moves = machine_moves_row)
     except Exception as e:
         logging.error(f"could not fetch data due to {e}")
         return render_template('pages/pokemon.html', rows=[])
