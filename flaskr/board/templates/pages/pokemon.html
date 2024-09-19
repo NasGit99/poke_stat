@@ -159,6 +159,7 @@
 <table>
   <th>Level</th>
   <th>Attack Name</th>
+  <th>Description</th>
   <th>Type</th>
   <th>Attack Category</th>
   <th>Attack</th>
@@ -170,6 +171,7 @@
   <tr>
       <td>{{ row.level_learned_at }}</td>
       <td>{{ row.move_name.capitalize() }}</td>
+      <td>{{row.move_description}}</td>
       <td>{{ row.move_type.capitalize() }}</td>
       <td>{{ row.move_attack_type.capitalize() }}</td>
       <td>{{ row.attack }}</td>
@@ -188,6 +190,7 @@
 <h2>Egg Moves</h2>
 <table>
   <th>Attack Name</th>
+  <th>Description</th>
   <th>Type</th>
   <th>Attack Category</th>
   <th>Attack</th>
@@ -198,6 +201,7 @@
   {% for row in egg_moves %}
   <tr>
       <td>{{ row.move_name.capitalize() }}</td>
+      <td>{{row.move_description}}</td>
       <td>{{ row.move_type.capitalize() }}</td>
       <td>{{ row.move_attack_type.capitalize() }}</td>
       <td>{{ row.attack }}</td>
@@ -216,6 +220,7 @@
 <table>
   <th>TM #</th>
   <th>Attack Name</th>
+  <th>Description</th>
   <th>Type</th>
   <th>Attack Category</th>
   <th>Attack</th>
@@ -227,6 +232,7 @@
   <tr>
       <td>{{row.machine_name.upper()}}</td>
       <td>{{ row.move_name.capitalize() }}</td>
+      <td>{{row.move_description}}</td>
       <td>{{ row.move_type.capitalize() }}</td>
       <td>{{ row.move_attack_type.capitalize() }}</td>
       <td>{{ row.attack }}</td>
