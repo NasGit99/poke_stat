@@ -133,70 +133,144 @@ def search_pokemon():
         sprite_rows = cursor.fetchall()
 
         cursor.execute("""
-        select s.pokemon, s.move_name, 
+        WITH moveset AS (
+    SELECT 
+        s.move_name, 
         s.level_learned_at, 
-        learn_method, 
+        s.learn_method, 
         p.move_description,
         p.move_attack_type,
         p.move_type,
-        case when p.attack is null then '0' 
-            else p.attack end as 'attack', 
-         p.pp,
-        p.priority
-            from pokemon_move_set s
-            join pokemon_moves p on s.move_name = p.move_name
-            where s.game_name ='scarlet-violet'
-            and s.learn_method = 'level-up'
-            and s.pokemon_id = %s
-            order by level_learned_at asc
-            ;
+        COALESCE(p.attack, '0') AS attack, 
+        p.pp,
+        p.priority,
+        ROW_NUMBER() OVER (PARTITION BY s.move_name ORDER BY s.level_learned_at ASC) AS rn
+    FROM 
+        pokemon_move_set s
+    JOIN 
+        pokemon_moves p ON s.move_name = p.move_name
+    JOIN 
+        poke_stats ps ON s.pokemon = ps.poke_name
+    WHERE  
+        s.learn_method = 'level-up'
+        AND s.game_name IN ('scarlet-violet', 'sword-shield', 'ultra-sun-ultra-moon', 'brilliant-diamond-shining-pearl')
+        AND ps.id = %s
+)
+
+SELECT 
+    move_name,
+    level_learned_at,
+    learn_method,
+    move_description,
+    move_attack_type,
+    move_type,
+    attack,
+    pp,
+    priority
+FROM 
+    moveset
+WHERE 
+    rn = 1
+ORDER BY 
+    level_learned_at ASC;
+
         """,(query,))
 
         level_up_moves_rows = cursor.fetchall()
         
         cursor.execute("""
-        select s.pokemon, s.move_name, 
+        WITH moveset AS (
+    SELECT 
+        s.move_name, 
         s.level_learned_at, 
-        learn_method, 
+        s.learn_method, 
         p.move_description,
         p.move_attack_type,
         p.move_type,
-        case when p.attack is null then '0' 
-            else p.attack end as 'attack', 
-         p.pp,
-        p.priority
-            from pokemon_move_set s
-            join pokemon_moves p on s.move_name = p.move_name
-            where s.game_name ='scarlet-violet'
-            and s.learn_method = 'egg'
-            and s.pokemon_id = %s
-            order by move_name asc
+        COALESCE(p.attack, '0') AS attack, 
+        p.pp,
+        p.priority,
+        ROW_NUMBER() OVER (PARTITION BY s.move_name ORDER BY s.level_learned_at ASC) AS rn
+    FROM 
+        pokemon_move_set s
+    JOIN 
+        pokemon_moves p ON s.move_name = p.move_name
+    JOIN 
+        poke_stats ps ON s.pokemon = ps.poke_name
+    WHERE  
+        s.learn_method = 'egg'
+        AND s.game_name IN ('scarlet-violet', 'sword-shield', 'ultra-sun-ultra-moon', 'brilliant-diamond-shining-pearl')
+        AND ps.id = %s
+)
+
+SELECT 
+    move_name,
+    level_learned_at,
+    learn_method,
+    move_description,
+    move_attack_type,
+    move_type,
+    attack,
+    pp,
+    priority
+FROM 
+    moveset
+WHERE 
+    rn = 1
+ORDER BY 
+    level_learned_at ASC;
+
             ;
         """,(query,))
 
         egg_moves_row = cursor.fetchall()
 
         cursor.execute("""
-        select s.pokemon, s.move_name, 
+        WITH moveset AS (
+    SELECT 
+        s.move_name, 
+        m.machine_name,
         s.level_learned_at, 
-        learn_method, 
+        s.learn_method, 
         p.move_description,
         p.move_attack_type,
         p.move_type,
-        case when p.attack is null then '0' 
-            else p.attack end as 'attack', 
-         p.pp,
+        COALESCE(p.attack, '0') AS attack, 
+        p.pp,
         p.priority,
-        m.machine_name
-            from pokemon_move_set s
-            join pokemon_moves p on s.move_name = p.move_name
-            join machine_moves m on m.move_name =  p.move_name
-            where s.game_name ='scarlet-violet'
-            and s.learn_method = 'machine'
-            and s.pokemon_id = %s
-            and m.game_name = 'scarlet-violet'
-            order by move_name asc
-            ;
+        ROW_NUMBER() OVER (PARTITION BY s.move_name ORDER BY s.level_learned_at ASC) AS rn
+    FROM 
+        pokemon_move_set s
+    JOIN 
+        pokemon_moves p ON s.move_name = p.move_name
+    JOIN 
+        poke_stats ps ON s.pokemon = ps.poke_name
+    JOIN 
+        machine_moves m ON m.move_name = p.move_name
+    WHERE  
+        s.learn_method = 'level-up'
+        AND s.game_name IN ('scarlet-violet', 'sword-shield', 'ultra-sun-ultra-moon')
+        AND ps.id = %s
+)
+
+SELECT 
+    move_name,
+    machine_name,
+    level_learned_at,
+    learn_method,
+    move_description,
+    move_attack_type,
+    move_type,
+    attack,
+    pp,
+    priority
+FROM 
+    moveset
+WHERE 
+    rn = 1
+ORDER BY 
+    move_name ASC;
+
         """,(query,))
 
         machine_moves_row = cursor.fetchall()

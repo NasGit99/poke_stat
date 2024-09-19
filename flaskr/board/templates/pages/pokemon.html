@@ -184,7 +184,7 @@
 
 </table>
 
-
+{% if egg_moves%}
 <h2>Egg Moves</h2>
 <table>
   <th>Attack Name</th>
@@ -194,7 +194,7 @@
   <th>Priority</th>
   <th>PP</th>
 
-  {% if egg_moves %}
+  
   {% for row in egg_moves %}
   <tr>
       <td>{{ row.move_name.capitalize() }}</td>
@@ -206,12 +206,12 @@
   </tr>
   {% endfor %}
   {% else %}
-  <p>No results found.</p>
+  <p>No egg move data</p>
   {% endif %}
 
 
 </table>
-
+{% if machine_moves %}
 <h2>Machine Moves</h2>
 <table>
   <th>TM #</th>
@@ -222,7 +222,7 @@
   <th>Priority</th>
   <th>PP</th>
 
-  {% if machine_moves %}
+  
   {% for row in machine_moves %}
   <tr>
       <td>{{row.machine_name.upper()}}</td>
