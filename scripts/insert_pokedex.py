@@ -4,15 +4,15 @@ import pandas as pd
 from sqlalchemy import create_engine
 from db_connector import db_connection
 
-def create_poke_database():
+def create_poke_table():
 
     mydb = db_connection()
     
     mycursor = mydb.cursor()
 
-    mycursor.execute("CREATE DATABASE IF NOT EXISTS PokeData")
+    mycursor.execute("CREATE table IF NOT EXISTS PokeData")
 
-    print("Database is created")
+    print("table is created")
 
     mycursor.execute("""
     
@@ -58,8 +58,8 @@ def insert_into_table():
     
 if __name__ == "__main__":
 
-    create_poke_database()
+    create_poke_table()
     insert_into_table()
 
-    print("Pokemon have been inserted into the database")
+    print("Pokemon have been inserted into the table")
 

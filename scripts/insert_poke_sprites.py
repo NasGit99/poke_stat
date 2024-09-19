@@ -53,7 +53,7 @@ def collect_sprites():
     
     return sprite_list
 
-def create_sprite_database():
+def create_sprite_table():
      
      mydb = db_connection()
     
@@ -72,7 +72,7 @@ def create_sprite_database():
 
 def insert_sprites_into_db():
 
-    create_sprite_database()
+    create_sprite_table()
 
     sprite_data = collect_sprites()
 

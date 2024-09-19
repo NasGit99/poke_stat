@@ -165,7 +165,7 @@ def find_pokemon_moveset_data():
     return pokemon_move_data       
 
 
-def create_move_database():
+def create_move_table():
      
      mydb = db_connection()
     
@@ -189,7 +189,7 @@ def create_move_database():
         );
     """)
      
-def create_pokemon_moveset_database():
+def create_pokemon_moveset_table():
      
      mydb = db_connection()
     
@@ -210,7 +210,7 @@ def create_pokemon_moveset_database():
 
 def insert_moves_data_into_db():
 
-    create_move_database()
+    create_move_table()
 
 
     move_list = find_move_data()
@@ -225,7 +225,7 @@ def insert_moves_data_into_db():
 
 def insert_pokemon_moves_data_into_db():
 
-    create_pokemon_moveset_database()
+    create_pokemon_moveset_table()
 
     pokemon_moveset = find_pokemon_moveset_data()
 
@@ -238,5 +238,5 @@ def insert_pokemon_moves_data_into_db():
     print("Data Inserted")
 
 if __name__ == "__main__":
-    #insert_moves_data_into_db()
+    insert_moves_data_into_db()
     insert_pokemon_moves_data_into_db()
