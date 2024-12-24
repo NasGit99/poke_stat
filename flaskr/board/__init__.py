@@ -4,10 +4,11 @@ import sys
 import os
 from flask_mysqldb import MySQL
 # Get the absolute path to the parent of the parent directory (go back two levels)
-parent_parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../'))
+parent_parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+
 
 # Append the directory containing the file you want to import
-sys.path.append(os.path.join(parent_parent_dir, 'pokemon_stat_finder'))
+sys.path.append(os.path.join(parent_parent_dir, 'scripts'))
 
 from var import *
 

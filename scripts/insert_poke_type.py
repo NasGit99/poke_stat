@@ -6,6 +6,7 @@ import sqlite3
 from sqlalchemy import create_engine
 from datetime import datetime
 import json
+from var import *
 
 def get_types(x):
         while True:

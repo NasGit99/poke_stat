@@ -1,4 +1,6 @@
 from db_connector import *
+from var import *
+
 
 # Define type columns
 type_columns = ["Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy", "Stellar"]

@@ -5,6 +5,7 @@ import requests
 import sqlite3 
 from sqlalchemy import create_engine
 from datetime import datetime
+from var import *
 import json
 
 
