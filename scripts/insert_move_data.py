@@ -5,6 +5,7 @@ import requests
 import sqlite3 
 from sqlalchemy import create_engine
 from datetime import datetime
+from var import *
 import json
 
 def get_move(x):
@@ -238,5 +239,5 @@ def insert_pokemon_moves_data_into_db():
     print("Data Inserted")
 
 if __name__ == "__main__":
-    insert_moves_data_into_db()
+    #insert_moves_data_into_db()
     insert_pokemon_moves_data_into_db()
