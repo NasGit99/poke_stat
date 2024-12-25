@@ -2,6 +2,8 @@ import requests
 import pandas as pd
 from db_connector import *
 from sqlalchemy import create_engine
+from var import *
+
 
 
 def get_ability(x):

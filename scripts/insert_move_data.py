@@ -239,5 +239,5 @@ def insert_pokemon_moves_data_into_db():
     print("Data Inserted")
 
 if __name__ == "__main__":
-    #insert_moves_data_into_db()
+    insert_moves_data_into_db()
     insert_pokemon_moves_data_into_db()
