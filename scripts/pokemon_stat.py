@@ -2,9 +2,9 @@ import requests
 
 class Pokemon:
     #Get user input for pokemon request
-    def get_pokemon():
+    def get_pokemon(count):
         while True:
-            poke_request= input("Type the 1st pokemon you want to look for:").lower()
+            poke_request= input(f"Pokemon Selection # {count}:").lower()
             api_url = f"https://pokeapi.co/api/v2/pokemon/{poke_request}"
             response = requests.get(api_url)
             if response.status_code != 200:
@@ -12,22 +12,8 @@ class Pokemon:
             elif response.status_code == 200:
                 data = response.json()
                 break
-
         return data
-        
 
-    def get_pokemon_2():
-        while True:
-            poke_request_2= input("Type the 2nd pokemon you want to look for:").lower()
-            api_url_2 = f"https://pokeapi.co/api/v2/pokemon/{poke_request_2}"
-            response_2 = requests.get(api_url_2)
-            if response_2.status_code != 200:
-                print("Pokemon is not valid")
-            elif response_2.status_code == 200:
-                data_2 = response_2.json()
-                break
-
-        return data_2
 
     #initalize pokemon object
     def __init__ (self,name,types,abilities,hp,attack,defense,spatk,spdef,spd):
@@ -40,8 +26,6 @@ class Pokemon:
         self.spatk =spatk
         self.spdef = spdef
         self.spd = spd
-
-      
 
         #List stats for Reference
     def list_stats ():
@@ -130,27 +114,51 @@ class Pokemon:
 
                 if Pokemon1.hp < 0:
                     print(f"{Pokemon1.name} has  won")
+
+def create_pokemon(pokemon_data):
+        return Pokemon(
+            pokemon_data['species']['name'],
+            pokemon_data['types'][0]['type']['name'],
+            pokemon_data['abilities'][0]['ability']['name'],
+            pokemon_data['stats'][0]['base_stat'],
+            pokemon_data['stats'][1]['base_stat'],
+            pokemon_data['stats'][2]['base_stat'],
+            pokemon_data['stats'][3]['base_stat'],
+            pokemon_data['stats'][4]['base_stat'],
+            pokemon_data['stats'][5]['base_stat']
+    )
+
+      
             
 
 if __name__ == "__main__":
 
         # Create two Pokémon
-            poke_name = Pokemon.get_pokemon()
-            poke_name2 =  Pokemon.get_pokemon_2()
 
-            Pokemon1 = Pokemon(poke_name['species']['name'], poke_name['types'][0]['type']['name'],poke_name['abilities'][0]['ability']['name'],
-            poke_name['stats'][0]['base_stat'],poke_name['stats'][1]['base_stat'],poke_name['stats'][2]['base_stat'],
-            poke_name['stats'][3]['base_stat'],poke_name['stats'][4]['base_stat'],poke_name['stats'][5]['base_stat'])
+        while True:
+            count = 1
 
-            Pokemon2 = Pokemon(poke_name2['species']['name'],poke_name2['types'][0]['type']['name'],poke_name2['abilities'][0]['ability']['name'],
-            poke_name2['stats'][0]['base_stat'],poke_name2['stats'][1]['base_stat'],poke_name2['stats'][2]['base_stat'],
-            poke_name2['stats'][3]['base_stat'],poke_name2['stats'][4]['base_stat'],poke_name2['stats'][5]['base_stat'])
+            poke_name = Pokemon.get_pokemon(count)
+
+            count += 1
+            
+            poke_name2 =  Pokemon.get_pokemon(count)
+
+            Pokemon1 = create_pokemon(poke_name)
+            Pokemon2 = create_pokemon(poke_name2)
 
             Pokemon.list_stats()  
 
-            user_input = input("Would you like to try again? Type 1 or 2 to start the pokemon battle:\n ")
-            if user_input == "1":
-                print("test")
-            elif user_input == "2":  
-                Pokemon.battle_start()
-            # Start the battle
+            user_input = 0
+            while user_input != "1" and user_input != "2":
+                user_input = input("\nWould you like to try again? Type 1 or 2 to start the pokemon battle: ")
+
+                if user_input == "1":
+                    print("\nRestarting the Pokémon creation...\n") 
+                     
+                elif user_input == "2":  
+                    Pokemon.battle_start()
+                    break
+                else:
+                    print("\nInvalid input, please choose 1 or 2.\n")
+                    
