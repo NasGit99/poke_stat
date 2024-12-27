@@ -56,64 +56,114 @@ class Pokemon:
             health_bar_1 = "=" * int(Pokemon1.hp/5)
             health_bar_2 = "=" * int(Pokemon2.hp/5)
 
-            print(f"{Pokemon1.name} Health Bar: {health_bar_1}\n"
+            print(f"{Pokemon1.name.capitalize()} Health Bar: {health_bar_1}\n"
                     f"current health is {Pokemon1.hp}\n")
             
-            print(f"{Pokemon2.name} Health Bar: {health_bar_1}\n"
+            print(f"{Pokemon2.name.capitalize()} Health Bar: {health_bar_2}\n"
                     f"current health is {Pokemon2.hp}\n")
             
-            #Pokemon 1 attacks first
-            print("Pokemon 1 attacks: \n")
-            #Need to add a while True statement here later to validate a 1 or 2
+            if Pokemon1.spd > Pokemon2.spd:
 
-            choice = input(f"{Pokemon1.name}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n") 
-                   
-            if choice == "1":
-                Pokemon2.hp -= Pokemon1.attack/5
-                print(f"{Pokemon2.name} pokemon health is now: {Pokemon2.hp}")
+                print("Pokemon 1 attacks: \n")
 
-                if Pokemon2.hp < 0:
-                    print(f"{Pokemon2.name} has  won")
+                while True:
 
-            elif choice == "2":
-                Pokemon2.hp -= Pokemon1.spatk/5 
-                print(f"{Pokemon2.name} health is: {Pokemon2.hp}\n") 
-
-                if Pokemon2.hp < 0:
-                    print(f"{Pokemon2.name} has  won")
-
-            elif choice != "1" or "2":
-                print("Please type 1 or 2 \n")
-            
-            #Pokemon 2 attacks second
+                    choice = input(f"{Pokemon1.name.capitalize()}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n") 
+                        
+                    if choice == "1":
+                        Pokemon2.hp -= Pokemon1.attack/5            
+                        print(f"Health Bar: {health_bar_2}\n")
+                        print(f"{Pokemon2.name.capitalize()} pokemon health is now: {Pokemon2.hp}")
+                        break
 
 
-            print("Pokemon 2 attacks: \n")
-            print(f"{Pokemon1.name} Health Bar: {health_bar_1}\n"
-                    f"Current health is {Pokemon1.hp}\n")
-            
-            print(f"{Pokemon2.name} Health Bar: {health_bar_1}\n"
-                    f"Current health is {Pokemon2.hp}\n")
-            
-
-            choice_2 = input(f"{Pokemon2.name}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n \n")
-
-            if choice_2 == "1":
-                Pokemon1.hp -= Pokemon2.attack/5
-                print(f"{Pokemon1.name} health is:{Pokemon1.hp}")
+                    elif choice == "2":
+                        Pokemon2.hp -= Pokemon1.spatk/5 
+                        print(f"Health Bar: {health_bar_2}\n")
+                        print(f"{Pokemon2.name.capitalize()} health is: {Pokemon2.hp}\n") 
+                        break
+                    else:
+                        print("Invalid input! Please type 1 or 2.")
                 
-                if Pokemon1.hp < 0:
-                   print(f"{Pokemon1.name} has  won")
+                if Pokemon2.hp <= 0:
+                    print(f"{Pokemon2.name.capitalize()} has fainted. {Pokemon1.name.capitalize()} wins!")
+                    break
 
-            elif choice_2 == "2":
-                Pokemon1.hp -= Pokemon2.spatk/5
-                print(f"{Pokemon1.name} health is:{Pokemon1.hp}")
+                    # Pokemon 2 attacks second
 
-            elif choice != "1" or "2":
-                print("Please type 1 or 2 \n \n")
+                while True:
+                    print(f"{Pokemon2.name.capitalize()} attacks next!")
+                    choice_2 = input(f"{Pokemon2.name.capitalize()}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n") 
 
-                if Pokemon1.hp < 0:
-                    print(f"{Pokemon1.name} has  won")
+                    if choice_2 == "1":
+                        Pokemon1.hp -= Pokemon2.attack / 5
+                        print(f"Health Bar: {health_bar_1}\n")
+                        print(f"{Pokemon1.name.capitalize()}'s health is now: {Pokemon1.hp}")
+                        break
+
+                    elif choice_2 == "2":
+                        Pokemon1.hp -= Pokemon2.spatk / 5
+                        print(f"Health Bar: {health_bar_1}\n")
+                        print(f"{Pokemon1.name.capitalize()}'s health is now: {Pokemon1.hp}")
+                        break
+                    else:
+                        print("Invalid input! Please type 1 or 2.")
+                    
+                if Pokemon1.hp <= 0:
+                    print(f"{Pokemon1.name.capitalize()} has fainted. {Pokemon2.name.capitalize()} wins!")
+                    break
+                
+            elif Pokemon2.spd > Pokemon1.spd:
+                    # Pokemon 2 attacks first
+
+                while True:
+                    print(f"{Pokemon2.name.capitalize()} attacks first!")
+
+                    choice_2 = input(f"{Pokemon2.name.capitalize()}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n") 
+
+                    if choice_2 == "1":
+                        Pokemon1.hp -= Pokemon2.attack / 5
+                        print(f"Health Bar: {health_bar_1}\n")
+                        print(f"{Pokemon1.name.capitalize()}'s health is now: {Pokemon1.hp}")
+                        break
+
+                    elif choice_2 == "2":
+                        Pokemon1.hp -= Pokemon2.spatk / 5
+                        print(f"Health Bar: {health_bar_1}\n")
+                        print(f"{Pokemon1.name.capitalize()}'s health is now: {Pokemon1.hp}")
+                        break
+
+                    else:
+                        print("Invalid input! Please type 1 or 2.")
+
+                if Pokemon1.hp <= 0:
+                    print(f"{Pokemon1.name.capitalize()} has fainted. {Pokemon2.name.capitalize()} wins!")
+                    break
+
+                    # Pokemon 1 attacks second
+                while True:
+                    print(f"{Pokemon1.name.capitalize()} attacks next!")
+
+                    choice = input(f"{Pokemon1.name.capitalize()}: Select the type of attack: 1 for physical-attk, 2 for special-attk: \n") 
+
+                    if choice == "1":
+                        Pokemon2.hp -= Pokemon1.attack / 5
+                        print(f"Health Bar: {health_bar_2}\n")
+                        print(f"{Pokemon2.name.capitalize()}'s health is now: {Pokemon2.hp}")
+                        break
+
+                    elif choice == "2":
+                        Pokemon2.hp -= Pokemon1.spatk / 5
+                        print(f"Health Bar: {health_bar_2}\n")
+                        print(f"{Pokemon2.name.capitalize()}'s health is now: {Pokemon2.hp}")
+                        break
+
+                    else:
+                        print("Invalid input! Please type 1 or 2.")
+
+                if Pokemon2.hp <= 0:
+                    print(f"{Pokemon2.name.capitalize()} has fainted. {Pokemon1.name.capitalize().capitalize()} wins!")
+                    break
 
 def create_pokemon(pokemon_data):
         return Pokemon(
@@ -127,9 +177,6 @@ def create_pokemon(pokemon_data):
             pokemon_data['stats'][4]['base_stat'],
             pokemon_data['stats'][5]['base_stat']
     )
-
-      
-            
 
 if __name__ == "__main__":
 
@@ -150,15 +197,19 @@ if __name__ == "__main__":
             Pokemon.list_stats()  
 
             user_input = 0
-            while user_input != "1" and user_input != "2":
-                user_input = input("\nWould you like to try again? Type 1 or 2 to start the pokemon battle: ")
+            while user_input != "1" and user_input != "2" and user_input != 3:
+                user_input = input("\nWould you like to try again? Type 1 to restart, 2 to start the battle, or 3 to exit \n ")
 
                 if user_input == "1":
                     print("\nRestarting the Pokémon creation...\n") 
                      
                 elif user_input == "2":  
                     Pokemon.battle_start()
-                    break
+                    exit()
+
+                elif user_input == "3":
+                    print("Closing now")
+                    exit()
                 else:
                     print("\nInvalid input, please choose 1 or 2.\n")
                     
